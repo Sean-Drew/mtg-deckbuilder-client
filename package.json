@@ -1,6 +1,6 @@
 {
   "name": "mtg-deckbuilder-client",
-  "homepage": "https://<USERNAME>.github.io/<REPO NAME>",
+  "homepage": "https://sean-drew.github.io/mtg-deckbuilder-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
