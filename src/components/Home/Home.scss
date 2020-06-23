@@ -1,0 +1,18 @@
+// Import fonts & other styling
+
+// Declare color scheme variables
+$mtgDarkGray: #5D5C61;
+$mtgLightGray: #948D94;
+$mtgLightBlue: #7395AE;
+$mtgDarkBlue: #557A95;
+$mtgBrown: #B1A296;
+$mtgWhite: #F8F8F8;
+$mtgSilver: #C0C0C0;
+$mtgRed: #E63946;
+
+body {
+  background: $mtgLightBlue;
+  // background-image: url(https://i.imgur.com/xetL8jR.jpg);
+  // background-size: cover;
+  // background-repeat: no-repeat;
+}
