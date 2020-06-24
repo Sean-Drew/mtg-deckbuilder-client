@@ -31,7 +31,11 @@ const MyPlayDecks = (props) => {
         console.log('response is ', res)
         const deckReturn = res.data.decks
         console.log('deckReturn is ', deckReturn)
-        return deckReturn.filter(deck => deck.owner._id === props.user._id)
+        return deckReturn.filter(deck => {
+          console.log('the deck: ', deck)
+          console.log('the owner: ', deck.owner)
+          return deck.owner === props.user._id
+        })
       })
       .then(response => {
         setDecks(response)
@@ -69,11 +73,11 @@ const MyPlayDecks = (props) => {
                   title="Archangel Avacyn"
                 />
                 <ul>
-                  <li>Lorem ipsum dolor sit amet.</li>
-                  <li>Consectetur adipiscing elit.</li>
-                  <li>Vivamus a vehicula mi.</li>
-                  <li>Nam ac metus ornare justo euismod aliquet sit amet sed lacus.</li>
-                  <li>Cras eu.</li>
+                  <li>Name: {deck.name}</li>
+                  <li>Favorite? {deck.isFavorite}</li>
+                  <li>Mana Color(s): {deck.manaColor}</li>
+                  <li>Notes: {deck.ownerNotes}</li>
+                  <li>Owner: {deck.owner}</li>
                 </ul>
               </Card>
             </Col>

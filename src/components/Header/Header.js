@@ -19,7 +19,7 @@ const unauthenticatedOptions = (
 
 const alwaysOptions = (
   <Fragment>
-    <Nav.Link href="/">Home</Nav.Link>
+    <Nav.Link href="#">Home</Nav.Link>
     <Nav.Link href="#my-play-decks">My Decks</Nav.Link>
   </Fragment>
 )
