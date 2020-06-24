@@ -10,6 +10,7 @@ import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import Home from '../Home/Home'
 import MyPlayDecks from '../MyPlayDecks/MyPlayDecks'
+import MySingleDeck from '../MySingleDeck/MySingleDeck'
 
 class App extends Component {
   constructor () {
@@ -48,6 +49,16 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/my-play-decks' render={() => (
             <MyPlayDecks props={this.state} msgAlert={this.msgAlert} user={user} />
           )} />
+          <AuthenticatedRoute user={user} exact path='/decks/:id' render={({ match }) => {
+            const currentDeck = match.params.id
+            return (
+              <MySingleDeck
+                postId={currentDeck}
+                user={user}
+                msgAlert={this.msgAlert}
+              />
+            )
+          }} />
           <Route exact path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
