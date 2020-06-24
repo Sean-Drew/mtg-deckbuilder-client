@@ -11,6 +11,7 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import Home from '../Home/Home'
 import MyPlayDecks from '../MyPlayDecks/MyPlayDecks'
 import MySingleDeck from '../MySingleDeck/MySingleDeck'
+import CreatePlayDeck from '../CreatePlayDeck/CreatePlayDeck'
 
 class App extends Component {
   constructor () {
@@ -46,6 +47,9 @@ class App extends Component {
         ))}
         <main className="container">
           <Route exact path='/' component={Home}/>
+          <AuthenticatedRoute user={user} exact path='/decks/create' render={() => (
+            <CreatePlayDeck props={this.state} msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} path='/my-play-decks' render={() => (
             <MyPlayDecks props={this.state} msgAlert={this.msgAlert} user={user} />
           )} />
@@ -53,9 +57,10 @@ class App extends Component {
             const currentDeck = match.params.id
             return (
               <MySingleDeck
-                postId={currentDeck}
+                deckId={currentDeck}
                 user={user}
                 msgAlert={this.msgAlert}
+                props={this.state}
               />
             )
           }} />

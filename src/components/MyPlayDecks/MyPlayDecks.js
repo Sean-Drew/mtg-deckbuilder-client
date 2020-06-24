@@ -92,7 +92,7 @@ const MyPlayDecks = (props) => {
                     <li>Notes: {deck.ownerNotes}</li>
                     <li>Favorite? {checkIfFavorite(deck)}</li>
                   </ul>
-                  <Link to='/show-single-deck'>
+                  <Link to={`/decks/${deck._id}`}>
                     <button type='button'>View Deck</button>
                   </Link>
                 </Card>

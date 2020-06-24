@@ -10,65 +10,69 @@ import MtgLogo1 from '../../Images/mtg-logo-1.jpg' /* Possible option for 'deck'
 
 const { Meta } = Card
 
-const MySingleDeck = (props) => {
-  const [decks, setDecks] = useState(null)
+const MySingleDeck = (props, match, ...rest) => {
+  const [deckCards, setDeckCards] = useState(null)
   const user = props.user
-  console.log('user is ', user)
-
-  console.log('decks is ', decks)
-  console.log('props.decks is ', props.decks)
+  // console.log('props is: ', props)
+  // console.log('this.state is: ', this.state)
+  // console.log('match is: ', match)
 
   useEffect(() => {
-    // axios(`${apiUrl}/decks`)
     axios({
       method: 'GET',
-      url: `${apiUrl}/decks`,
+      url: `${apiUrl}/decks/${props.deckId}`,
       headers: {
         'Authorization': `Token token=${user.token}`
       }
     })
       .then(res => {
-        console.log('response is ', res)
-        const deckReturn = res.data.decks
-        console.log('deckReturn is ', deckReturn)
-        return deckReturn.filter(deck => {
-          console.log('the deck: ', deck)
-          console.log('the owner: ', deck.owner)
-          return deck.owner === props.user._id
-        })
+        // console.log('response is ', res)
+        // const deckReturn = res.data.deck
+        const responseCards = res.data.deck.cardsInDeck
+        // console.log('deckReturn is ', deckReturn)
+        // console.log('responseCards is: ', responseCards)
+        return responseCards
+        // return responseCards.forEach(card => {
+        //   // console.log('the cards: ', card)
+        //   const cardIndex = card
+        //   // console.log('cardIndex is: ', cardIndex)
+        //   setDeckCards(cardIndex)
+        //   // console.log('the owner: ', deck.owner)
+        //   // return deck.owner === props.user._id
+        // })
       })
-      .then(response => {
-        setDecks(response)
+      .then((responseCards) => {
+        setDeckCards(responseCards)
       })
+      // .then(cardIndex => {
+      //   console.log('response cardIndex is: ', cardIndex)
+      //   setDeckCards(cardIndex)
+      // })
       .catch(console.error)
   }, [])
 
-  if (!decks) {
+  // console.log('setDeckCards is: ', setDeckCards)
+  // console.log('deckCards is: ', deckCards)
+  // console.log('responseCards from outside the function is: ', responseCards)
+
+  if (!deckCards) {
     return <p>Loading....</p>
   }
 
-  if (decks.length === 0) {
-    return <p>You have no decks - try making one!</p>
-  }
-
-  const deckCardCounter = (deck) => {
-    // set a variable to return
-    const numberOfCards = deck.cardsInDeck.length()
-    // the variable is the number of cards in the deck
-    console.log('numberOfCards is ', numberOfCards)
-    // count the array, set it to the variable, return variable
+  if (deckCards.length === 0) {
+    return <p>This deck does not currently have any cards.</p>
   }
 
   return (
     <div>
-      <div key={decks._id} className="site-card-wrapper">
+      <div key={deckCards._id} className="site-card-wrapper">
         <Row gutter={16}>
-          {decks.map(deck => (
-            <div key={decks._id}>
+          {deckCards.map(deck => (
+            <div key={deckCards._id}>
               <Col span={8}>
                 <Card
                   className="my-decks-card"
-                  style={{ width: 250 }}
+                  style={{ width: 200 }}
                   hoverable
                   bordered={false}
                   cover={
@@ -79,14 +83,13 @@ const MySingleDeck = (props) => {
                   }
                 >
                   <Meta
-                    title="Archangel Avacyn"
+                    title='Card Name'
                   />
                   <ul>
-                    <li>Name: {deck.name}</li>
-                    <li>Favorite? {deck.isFavorite}</li>
-                    <li>Mana Color(s): {deck.manaColor}</li>
-                    <li>Notes: {deck.ownerNotes}</li>
-                    <li>Cards in deck: {deckCardCounter()}</li>
+                    <li>Placeholder - card data</li>
+                    <li>Placeholder - card data</li>
+                    <li>Placeholder - card data</li>
+                    <li>Placeholder - card data</li>
                   </ul>
                 </Card>
               </Col>
