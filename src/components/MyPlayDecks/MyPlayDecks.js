@@ -5,8 +5,8 @@ import axios from 'axios'
 
 // import design & styling items
 import 'antd/dist/antd.css'
-import MtgCardBack from '../../Images/mtg-card-back-2.jpg'
-// import MtgLogo1 from '../../Images/mtg-logo-1.jpg' Possible alternative for 'deck' image
+// import MtgCardBack from '../../Images/mtg-card-back-2.jpg' /* Possible option for 'deck' image */
+import MtgLogo1 from '../../Images/mtg-logo-1.jpg' /* Possible option for 'deck' image */
 
 const { Meta } = Card
 
@@ -15,14 +15,25 @@ const MyPlayDecks = (props) => {
   const user = props.user
   console.log('user is ', user)
 
+  console.log('decks is ', decks)
+  console.log('props.decks is ', props.decks)
+
   useEffect(() => {
-    axios(`${apiUrl}/decks`)
+    // axios(`${apiUrl}/decks`)
+    axios({
+      method: 'GET',
+      url: `${apiUrl}/decks`,
+      headers: {
+        'Authorization': `Token token=${user.token}`
+      }
+    })
       .then(res => {
+        console.log('response is ', res)
         const deckReturn = res.data.decks
+        console.log('deckReturn is ', deckReturn)
         return deckReturn.filter(deck => deck.owner._id === props.user._id)
       })
       .then(response => {
-        console.log('response from line 23 is ', response)
         setDecks(response)
       })
       .catch(console.error)
@@ -35,10 +46,11 @@ const MyPlayDecks = (props) => {
   if (decks.length === 0) {
     return <p>You have no decks - try making one!</p>
   }
+
   return (
     <div>
       {decks.map(deck => (
-        <div key={deck._id} className="site-card-wrapper">
+        <div key={decks._id} className="site-card-wrapper">
           <Row gutter={16}>
             <Col span={8}>
               <Card
@@ -49,7 +61,7 @@ const MyPlayDecks = (props) => {
                 cover={
                   <img
                     alt="mtg-card"
-                    src={MtgCardBack}
+                    src={MtgLogo1}
                   />
                 }
               >

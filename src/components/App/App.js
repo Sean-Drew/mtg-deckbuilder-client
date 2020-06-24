@@ -31,7 +31,7 @@ class App extends Component {
 
   render () {
     const { msgAlerts, user } = this.state
-    console.log(this.state)
+    console.log('this.state is ', this.state)
     return (
       <Fragment>
         <Header user={user} />
@@ -46,7 +46,7 @@ class App extends Component {
         <main className="container">
           <Route exact path='/' component={Home}/>
           <AuthenticatedRoute user={user} path='/my-play-decks' render={() => (
-            <MyPlayDecks msgAlert={this.msgAlert} user={user} />
+            <MyPlayDecks props={this.state} msgAlert={this.msgAlert} user={user} />
           )} />
           <Route exact path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
