@@ -51,6 +51,20 @@ const MySingleDeck = (props, match, ...rest) => {
       .catch(console.error)
   }, [])
 
+  console.log('props is: ', props)
+
+  const deleteOnClick = event => {
+    event.preventDefault()
+    axios({
+      method: 'DELETE',
+      url: `${apiUrl}/decks/${props.deckId}`,
+      headers: {
+        'Authorization': `Token token=${user.token}`
+      }
+    })
+    // .then(() => { this.props.history.push('/my-play-decks') })
+  }
+
   // console.log('setDeckCards is: ', setDeckCards)
   // console.log('deckCards is: ', deckCards)
   // console.log('responseCards from outside the function is: ', responseCards)
@@ -65,6 +79,7 @@ const MySingleDeck = (props, match, ...rest) => {
 
   return (
     <div>
+      <button onClick={deleteOnClick}>Delete This Deck</button>
       <div key={deckCards._id} className="site-card-wrapper">
         <Row gutter={16}>
           {deckCards.map(deck => (

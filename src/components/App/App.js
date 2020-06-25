@@ -12,6 +12,7 @@ import Home from '../Home/Home'
 import MyPlayDecks from '../MyPlayDecks/MyPlayDecks'
 import MySingleDeck from '../MySingleDeck/MySingleDeck'
 import CreatePlayDeck from '../CreatePlayDeck/CreatePlayDeck'
+import UpdatePlayDeck from '../UpdatePlayDeck/UpdatePlayDeck'
 
 class App extends Component {
   constructor () {
@@ -33,7 +34,7 @@ class App extends Component {
 
   render () {
     const { msgAlerts, user } = this.state
-    console.log('this.state is ', this.state)
+    console.log('this.state is: ', this.state)
     return (
       <Fragment>
         <Header user={user} />
@@ -57,6 +58,17 @@ class App extends Component {
             const currentDeck = match.params.id
             return (
               <MySingleDeck
+                deckId={currentDeck}
+                user={user}
+                msgAlert={this.msgAlert}
+                props={this.state}
+              />
+            )
+          }} />
+          <AuthenticatedRoute user={user} exact path='/decks/update/:id' render={({ match }) => {
+            const currentDeck = match.params.id
+            return (
+              <UpdatePlayDeck
                 deckId={currentDeck}
                 user={user}
                 msgAlert={this.msgAlert}

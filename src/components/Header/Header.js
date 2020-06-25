@@ -5,6 +5,8 @@ import './Header.scss'
 
 const authenticatedOptions = (
   <Fragment>
+    <Nav.Link href="#my-play-decks">My Decks</Nav.Link>
+    <Nav.Link href="#decks/create">Create New Deck</Nav.Link>
     <Nav.Link href="#change-password">Change Password</Nav.Link>
     <Nav.Link href="#sign-out">Sign Out</Nav.Link>
   </Fragment>
@@ -17,13 +19,11 @@ const unauthenticatedOptions = (
   </Fragment>
 )
 
-const alwaysOptions = (
-  <Fragment>
-    <Nav.Link href="#">Home</Nav.Link>
-    <Nav.Link href="#my-play-decks">My Decks</Nav.Link>
-    <Nav.Link href="#decks/create">Create New Deck</Nav.Link>
-  </Fragment>
-)
+// const alwaysOptions = (
+//   <Fragment>
+//     <Nav.Link href="#">Home</Nav.Link>
+//   </Fragment>
+// )
 
 const Header = ({ user }) => (
   <div className="top-nav-wrapper">
@@ -35,7 +35,7 @@ const Header = ({ user }) => (
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           { user && <span className="navbar-text mr-2">Welcome, {user.userName}</span>}
-          { alwaysOptions }
+          {/* { alwaysOptions } */}
           { user ? authenticatedOptions : unauthenticatedOptions }
         </Nav>
       </Navbar.Collapse>

@@ -95,6 +95,9 @@ const MyPlayDecks = (props) => {
                   <Link to={`/decks/${deck._id}`}>
                     <button type='button'>View Deck</button>
                   </Link>
+                  <Link to={`/decks/update/${deck._id}`}>
+                    <button type='button'>Update Deck</button>
+                  </Link>
                 </Card>
               </Col>
             </div>
