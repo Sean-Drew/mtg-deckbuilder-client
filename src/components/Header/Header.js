@@ -21,6 +21,7 @@ const alwaysOptions = (
   <Fragment>
     <Nav.Link href="#">Home</Nav.Link>
     <Nav.Link href="#my-play-decks">My Decks</Nav.Link>
+    <Nav.Link href="#decks/create">Create New Deck</Nav.Link>
   </Fragment>
 )
 
