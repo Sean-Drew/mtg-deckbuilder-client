@@ -15,7 +15,7 @@ const CreatePlayDeck = (props, msgAlert, ...rest) => {
     ownerNotes: ''
   })
   const user = props.user
-  console.log(msgAlert)
+  // console.log(msgAlert)
 
   // const onChange = event => {
   //   event.persist = () => {}
@@ -24,7 +24,7 @@ const CreatePlayDeck = (props, msgAlert, ...rest) => {
 
   const handleChange = (event) => {
     event.persist()
-    console.log('event.target is: ', event.target)
+    // console.log('event.target is: ', event.target)
     postDeck(deck => ({ ...deck, [event.target.id]: event.target.value }))
   }
 
@@ -41,27 +41,30 @@ const CreatePlayDeck = (props, msgAlert, ...rest) => {
       },
       data: { deck: deck }
     })
+      .then(() => props.msgAlert({ message: 'Successful action.', variant: 'success' }))
+      .catch(error => {
+        props.msgAlert({
+          heading: 'Action not successful: ' + error.message,
+          message: 'Please check all fields and try again.',
+          variant: 'danger'
+        })
+      })
   }
 
-  console.log('the deck is: ', deck)
+  // console.log('the deck is: ', deck)
 
   return (
     <div id="create-deck-wrapper">
 
-      <Form onFinish={handleSubmit}>
+      <Form id="create-new-deck-form" onFinish={handleSubmit}>
 
         <Form.Item
           name='name'
           label="Name"
+          id="create-new-deck-name"
           onChange={handleChange}
           placeholder="25 chars max."
           value={deck.name}
-          rules={[
-            {
-              required: true,
-              maxlength: 25
-            }
-          ]}
         >
           <Input />
         </Form.Item>
@@ -70,6 +73,7 @@ const CreatePlayDeck = (props, msgAlert, ...rest) => {
           <Select
             name='manaColor'
             placeholder="Mana Color(s)"
+            id="create-new-deck-mana"
             /* onSelect={(event) => handleChange(event)} */
             onChange={handleDropdownChange}
             value={deck.manaColor}
@@ -96,6 +100,7 @@ const CreatePlayDeck = (props, msgAlert, ...rest) => {
           name='ownerNotes'
           label="Notes"
           placeholder="400 chars max."
+          id="create-new-deck-notes"
           onChange={handleChange}
           value={deck.ownerNotes}
         >

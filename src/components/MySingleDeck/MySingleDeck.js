@@ -48,10 +48,11 @@ const MySingleDeck = (props, match, ...rest) => {
       //   console.log('response cardIndex is: ', cardIndex)
       //   setDeckCards(cardIndex)
       // })
-      .catch(console.error)
+      .then(() => props.msgAlert({ message: 'Successful action.', variant: 'success' }))
+      // .catch(console.error)
   }, [])
 
-  console.log('props is: ', props)
+  // console.log('props is: ', props)
 
   const deleteOnClick = event => {
     event.preventDefault()
@@ -70,7 +71,7 @@ const MySingleDeck = (props, match, ...rest) => {
   // console.log('responseCards from outside the function is: ', responseCards)
 
   if (!deckCards) {
-    return <p>Loading....</p>
+    return <p>----------------------------</p>
   }
 
   if (deckCards.length === 0) {

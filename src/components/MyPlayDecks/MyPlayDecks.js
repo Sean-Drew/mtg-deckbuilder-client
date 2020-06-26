@@ -11,7 +11,7 @@ import MtgLogo1 from '../../Images/mtg-logo-1.jpg' /* Possible option for 'deck'
 
 const { Meta } = Card
 
-const MyPlayDecks = (props) => {
+const MyPlayDecks = (props, match, ...rest) => {
   const [decks, setDecks] = useState(null)
   const user = props.user
   // console.log('user is ', user)
@@ -33,7 +33,7 @@ const MyPlayDecks = (props) => {
         const deckReturn = res.data.decks
         // console.log('deckReturn is ', deckReturn)
         return deckReturn.filter(deck => {
-          console.log('the deck: ', deck)
+          // console.log('the deck: ', deck)
           // console.log('the owner: ', deck.owner)
           return deck.owner === props.user._id
         })
@@ -41,8 +41,28 @@ const MyPlayDecks = (props) => {
       .then(response => {
         setDecks(response)
       })
-      .catch(console.error)
+      .then(() => props.msgAlert({ message: 'Successful action.', variant: 'success' }))
+      // .catch(console.error)
   }, [])
+
+  const deleteOnClick = event => {
+    event.preventDefault()
+    // console.log('decks from index delete is: ', decks)
+    // console.log('decks._id from index delete is: ', decks._id)
+    return decks.forEach(deck => {
+      // console.log('the deck from delete is: ', deck)
+      // console.log('deck._id from index delete is: ', deck._id)
+      // console.log('the owner: ', deck.owner)
+      return axios({
+        method: 'DELETE',
+        url: `${apiUrl}/decks/${deck._id}`,
+        headers: {
+          'Authorization': `Token token=${user.token}`
+        }
+      })
+        .then(() => props.msgAlert({ message: 'Successful action.', variant: 'success' }))
+    })
+  }
 
   if (!decks) {
     return <p>Loading....</p>
@@ -70,6 +90,7 @@ const MyPlayDecks = (props) => {
         <Row gutter={16}>
           {decks.map(deck => (
             <div key={decks._id}>
+              <button onClick={deleteOnClick}>Delete All Decks</button>
               <Col span={8}>
                 <Card
                   className="my-decks-card"

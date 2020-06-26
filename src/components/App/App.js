@@ -34,7 +34,7 @@ class App extends Component {
 
   render () {
     const { msgAlerts, user } = this.state
-    console.log('this.state is: ', this.state)
+    // console.log('this.state is: ', this.state)
     return (
       <Fragment>
         <Header user={user} />
@@ -51,9 +51,20 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/decks/create' render={() => (
             <CreatePlayDeck props={this.state} msgAlert={this.msgAlert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/my-play-decks' render={() => (
+          {/* <AuthenticatedRoute user={user} path='/my-play-decks' render={() => (
             <MyPlayDecks props={this.state} msgAlert={this.msgAlert} user={user} />
-          )} />
+          )} /> */}
+          <AuthenticatedRoute user={user} exact path='/my-play-decks' render={({ match }) => {
+            const currentDeck = match.params.id
+            return (
+              <MyPlayDecks
+                deckId={currentDeck}
+                user={user}
+                msgAlert={this.msgAlert}
+                props={this.state}
+              />
+            )
+          }} />
           <AuthenticatedRoute user={user} exact path='/decks/:id' render={({ match }) => {
             const currentDeck = match.params.id
             return (

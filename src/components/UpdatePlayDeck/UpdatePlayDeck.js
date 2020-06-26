@@ -15,7 +15,7 @@ const UpdatePlayDeck = (props, msgAlert, ...rest) => {
     ownerNotes: ''
   })
   const user = props.user
-  console.log(msgAlert)
+  // console.log(msgAlert)
 
   // const onChange = event => {
   //   event.persist = () => {}
@@ -24,7 +24,7 @@ const UpdatePlayDeck = (props, msgAlert, ...rest) => {
 
   const handleChange = (event) => {
     event.persist()
-    console.log('event.target is: ', event.target)
+    // console.log('event.target is: ', event.target)
     postDeck(deck => ({ ...deck, [event.target.id]: event.target.value }))
   }
 
@@ -33,7 +33,7 @@ const UpdatePlayDeck = (props, msgAlert, ...rest) => {
   }
 
   const handleSubmit = (event) => {
-    console.log('props is: ', props)
+    // console.log('props is: ', props)
     axios({
       method: 'PATCH',
       url: `${apiUrl}/decks/${props.deckId}`,
@@ -42,9 +42,17 @@ const UpdatePlayDeck = (props, msgAlert, ...rest) => {
       },
       data: { deck: deck }
     })
+      .then(() => props.msgAlert({ message: 'Successful action.', variant: 'success' }))
+      .catch(error => {
+        props.msgAlert({
+          heading: 'Action not successful: ' + error.message,
+          message: 'Please check all fields and try again.',
+          variant: 'danger'
+        })
+      })
   }
 
-  console.log('the deck is: ', deck)
+  // console.log('the deck is: ', deck)
 
   return (
     <div id="create-deck-wrapper">
@@ -57,12 +65,6 @@ const UpdatePlayDeck = (props, msgAlert, ...rest) => {
           onChange={handleChange}
           placeholder="25 chars max."
           value={deck.name}
-          rules={[
-            {
-              required: true,
-              maxlength: 25
-            }
-          ]}
         >
           <Input />
         </Form.Item>
